@@ -42,5 +42,5 @@ namespace ZyroMoney_DESKTOP.Models
 
         public bool IsDeleted { get; set; } = false;
         public DateTime? DeletedAt { get; set; }
-    }
+        }
 }

@@ -1,61 +1,142 @@
 ﻿<Window x:Class="ZyroMoney_DESKTOP.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ZyroMoney Desktop - Finanzas Offline" Height="600" Width="900"
-        Background="#111827" Foreground="#F3F4F6" WindowStartupLocation="CenterScreen">
+        Title="ZyroMoney Desktop" Height="700" Width="1100"
+        Background="#0F172A" Foreground="#F8FAFC" WindowStartupLocation="CenterScreen">
 
-    <Grid Margin="24">
+    <Grid Margin="28">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Cabecera -->
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
-            <TextBlock Text="ZyroMoney" FontSize="24" FontWeight="Bold" Foreground="#34D399"/>
-            <TextBlock Text=" • Escritorio Local" FontSize="24" FontWeight="Light" Foreground="#9CA3AF" Margin="5,0,0,0"/>
-        </StackPanel>
+        <!-- Barra Superior: Marca y Botones de Acción -->
+        <Grid Grid.Row="0" Margin="0,0,0,24">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="ZyroMoney" FontSize="26" FontWeight="Bold" Foreground="#10B981"/>
+                <TextBlock Text=" • Panel Financiero" FontSize="22" FontWeight="Light" Foreground="#94A3B8" VerticalAlignment="Center" Margin="6,2,0,0"/>
+            </StackPanel>
 
-        <!-- Contenido Central -->
-        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock x:Name="TxtProfileName" Text="Perfil Local" Foreground="#94A3B8" VerticalAlignment="Center" Margin="0,0,16,0" FontSize="13"/>
+
+                <Button Content="➕ Registrar Consumo" Background="#334151" Foreground="#34D399" FontWeight="SemiBold"
+                        Padding="14,10" Margin="0,0,10,0" BorderThickness="0" Cursor="Hand" Click="BtnAddTransaction_Click"/>
+
+                <Button Content="💸 Abonar Tarjeta" Background="#334151" Foreground="#38BDF8" FontWeight="SemiBold"
+                        Padding="14,10" Margin="0,0,10,0" BorderThickness="0" Cursor="Hand" Click="BtnAddPayment_Click"/>
+
+                <Button Content="+ Nueva Tarjeta" Background="#10B981" Foreground="#0F172A" FontWeight="Bold"
+                        Padding="16,10" BorderThickness="0" Cursor="Hand" Click="BtnAddCard_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Fila de KPIs -->
+        <Grid Grid.Row="1" Margin="0,0,0,24">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Panel Izquierdo: Información y Estado de la BD -->
-            <Border Grid.Column="0" Background="#1F2937" CornerRadius="10" Padding="20" BorderBrush="#374151" BorderThickness="1">
+            <Border Grid.Column="0" Background="#1E293B" CornerRadius="10" Padding="18" Margin="0,0,12,0" BorderBrush="#334151" BorderThickness="1">
                 <StackPanel>
-                    <TextBlock Text="Estado del Sistema" FontSize="16" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,10"/>
-
-                    <TextBlock x:Name="TxtUserStatus" Text="Cargando perfil local..." FontSize="14" Foreground="#9CA3AF" Margin="0,0,0,15"/>
-
-                    <Button Content="🔄 Probar Conexión con SQLite" 
-                            Background="#374151" Foreground="#FFFFFF" FontWeight="Medium" 
-                            Height="38" Cursor="Hand" BorderThickness="0"
-                            Click="BtnTestDb_Click"/>
+                    <TextBlock Text="DEUDA TOTAL (DOP)" FontSize="11" FontWeight="SemiBold" Foreground="#94A3B8"/>
+                    <TextBlock x:Name="TxtTotalDebtDop" Text="DOP 0.00" FontSize="22" FontWeight="Bold" Foreground="#F87171" Margin="0,6,0,4"/>
+                    <TextBlock x:Name="TxtTotalDebtUsd" Text="USD 0.00 en dólares" FontSize="12" Foreground="#64748B"/>
                 </StackPanel>
             </Border>
 
-            <!-- Panel Derecho: Acciones Rápidas -->
-            <Border Grid.Column="1" Margin="16,0,0,0" Background="#1F2937" CornerRadius="10" Padding="20" BorderBrush="#374151" BorderThickness="1">
+            <Border Grid.Column="1" Background="#1E293B" CornerRadius="10" Padding="18" Margin="6,0,6,0" BorderBrush="#334151" BorderThickness="1">
                 <StackPanel>
-                    <TextBlock Text="Acciones" FontSize="16" FontWeight="SemiBold" Foreground="#FFFFFF" Margin="0,0,0,10"/>
+                    <TextBlock Text="DISPONIBLE GLOBAL (DOP)" FontSize="11" FontWeight="SemiBold" Foreground="#94A3B8"/>
+                    <TextBlock x:Name="TxtAvailableDop" Text="DOP 0.00" FontSize="22" FontWeight="Bold" Foreground="#34D399" Margin="0,6,0,4"/>
+                    <TextBlock x:Name="TxtTotalLimitDop" Text="Límite total: DOP 0.00" FontSize="12" Foreground="#64748B"/>
+                </StackPanel>
+            </Border>
 
-                    <Button Content="💳 Gestionar Tarjetas" 
-                            Background="#059669" Foreground="#FFFFFF" FontWeight="Bold" 
-                            Height="40" Margin="0,0,0,10" Cursor="Hand" BorderThickness="0"/>
+            <Border Grid.Column="2" Background="#1E293B" CornerRadius="10" Padding="18" Margin="6,0,6,0" BorderBrush="#334151" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="UTILIZACIÓN DE CRÉDITO" FontSize="11" FontWeight="SemiBold" Foreground="#94A3B8"/>
+                    <TextBlock x:Name="TxtUtilization" Text="0.0%" FontSize="22" FontWeight="Bold" Foreground="#FBBF24" Margin="0,6,0,4"/>
+                    <TextBlock x:Name="TxtUtilizationHint" Text="Salud financiera óptima (&lt;30%)" FontSize="12" Foreground="#64748B"/>
+                </StackPanel>
+            </Border>
 
-                    <Button Content="📋 Ver Deudas" 
-                            Background="#374151" Foreground="#FFFFFF" FontWeight="Medium" 
-                            Height="40" Cursor="Hand" BorderThickness="0"/>
+            <Border Grid.Column="3" Background="#1E293B" CornerRadius="10" Padding="18" Margin="12,0,0,0" BorderBrush="#334151" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="PRÓXIMO VENCIMIENTO" FontSize="11" FontWeight="SemiBold" Foreground="#94A3B8"/>
+                    <TextBlock x:Name="TxtNextDueCard" Text="Sin tarjetas" FontSize="18" FontWeight="Bold" Foreground="#38BDF8" Margin="0,6,0,4" TextTrimming="CharacterEllipsis"/>
+                    <TextBlock x:Name="TxtNextDueDays" Text="Agrega una tarjeta para iniciar" FontSize="12" Foreground="#64748B"/>
                 </StackPanel>
             </Border>
         </Grid>
 
-        <StatusBar Grid.Row="2" Background="Transparent" Foreground="#9CA3AF">
-            <StatusBarItem Content="Base de datos SQLite activa en AppData/Local/ZyroMoneyDesktop"/>
-        </StatusBar>
+        <!-- Sección Principal: Mis Tarjetas Activas -->
+        <Border Grid.Row="2" Background="#1E293B" CornerRadius="12" Padding="20" BorderBrush="#334151" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Mis Tarjetas Activas" FontSize="17" FontWeight="SemiBold" Foreground="#F8FAFC" Margin="0,0,0,16"/>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="CardsList">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="310" Background="#0F172A" BorderBrush="#334151" BorderThickness="1" CornerRadius="10" Padding="18" Margin="0,0,16,16">
+                                    <StackPanel>
+                                        <Grid Margin="0,0,0,12">
+                                            <TextBlock Text="{Binding Name}" FontSize="17" FontWeight="Bold" Foreground="#FFFFFF" TextTrimming="CharacterEllipsis" Width="200"/>
+
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                <Button Content="🔍" Background="Transparent" Foreground="#10B981" FontWeight="Bold"
+                                                    Cursor="Hand" BorderThickness="0" ToolTip="Ver movimientos y detalles" Margin="0,0,8,0"
+                                                    Click="BtnViewCardDetails_Click" Tag="{Binding CreditCardId}"/>
+                                                <Button Content="✏️" Background="Transparent" Foreground="#38BDF8" FontWeight="Bold"
+                                                    Cursor="Hand" BorderThickness="0" ToolTip="Editar tarjeta" Margin="0,0,8,0"
+                                                    Click="BtnEditCard_Click" Tag="{Binding CreditCardId}"/>
+                                                <Button Content="🗑️" Background="Transparent" Foreground="#F87171" FontWeight="Bold"
+                                                        Cursor="Hand" BorderThickness="0" ToolTip="Eliminar tarjeta"
+                                                        Click="BtnDeleteCard_Click" Tag="{Binding CreditCardId}"/>
+                                                
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <TextBlock Text="Balance Actual" FontSize="11" Foreground="#94A3B8"/>
+                                        <TextBlock Text="{Binding FormattedBalance}" FontSize="20" FontWeight="Bold" Foreground="#F87171" Margin="0,2,0,10"/>
+
+                                        <Grid Margin="0,0,0,10">
+                                            <StackPanel HorizontalAlignment="Left">
+                                                <TextBlock Text="Disponible" FontSize="11" Foreground="#94A3B8"/>
+                                                <TextBlock Text="{Binding FormattedAvailable}" FontSize="13" FontWeight="SemiBold" Foreground="#34D399"/>
+                                            </StackPanel>
+                                            <StackPanel HorizontalAlignment="Right">
+                                                <TextBlock Text="Límite" FontSize="11" Foreground="#94A3B8" HorizontalAlignment="Right"/>
+                                                <TextBlock Text="{Binding FormattedLimit}" FontSize="13" Foreground="#CBD5E1"/>
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <Border BorderBrush="#1E293B" BorderThickness="0,1,0,0" Padding="0,10,0,0">
+                                            <TextBlock Text="{Binding CycleInfo}" FontSize="12" Foreground="#94A3B8"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

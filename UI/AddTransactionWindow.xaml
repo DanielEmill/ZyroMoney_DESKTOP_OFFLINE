@@ -1,0 +1,74 @@
+﻿<Window x:Class="ZyroMoney_DESKTOP.AddTransactionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Registrar Consumo con Tarjeta" Height="520" Width="420"
+        Background="#0F172A" Foreground="#F8FAFC"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+
+    <Grid Margin="24">
+        <StackPanel>
+            <TextBlock Text="Nuevo Consumo" FontSize="20" FontWeight="Bold" Foreground="#FFFFFF" Margin="0,0,0,4"/>
+            <TextBlock Text="Registra una compra o cargo realizado a tu tarjeta." FontSize="12" Foreground="#94A3B8" Margin="0,0,0,16"/>
+
+            <!-- Selector de Tarjeta con ItemTemplate para forzar el nombre -->
+            <TextBlock Text="Seleccionar Tarjeta" FontSize="12" Foreground="#CBD5E1" Margin="0,0,0,5"/>
+            <ComboBox x:Name="CmbCards" Height="36" Margin="0,0,0,12"
+                      SelectedValuePath="CreditCardId">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" Foreground="#FFFFFF"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!-- Descripción -->
+            <TextBlock Text="Descripción o Comercio" FontSize="12" Foreground="#CBD5E1" Margin="0,0,0,5"/>
+            <TextBox x:Name="TxtDescription" Background="#1E293B" Foreground="#FFFFFF" BorderBrush="#334151" Padding="8" Height="36" Margin="0,0,0,12"/>
+
+            <!-- Monto y Categoría -->
+            <Grid Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                    <TextBlock Text="Monto" FontSize="12" Foreground="#CBD5E1" Margin="0,0,0,5"/>
+                    <TextBox x:Name="TxtAmount" Background="#1E293B" Foreground="#FFFFFF" BorderBrush="#334151" Padding="8" Height="36"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                    <TextBlock Text="Categoría" FontSize="12" Foreground="#CBD5E1" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="CmbCategory" Height="36" SelectedIndex="0">
+                        <ComboBoxItem Content="Supermercado"/>
+                        <ComboBoxItem Content="Combustible"/>
+                        <ComboBoxItem Content="Tecnología/Hardware"/>
+                        <ComboBoxItem Content="Restaurante/Comida"/>
+                        <ComboBoxItem Content="Servicios/Suscripción"/>
+                        <ComboBoxItem Content="Otro"/>
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+
+            <!-- Comentarios Opcionales -->
+            <TextBlock Text="Comentarios / Notas (Opcional)" FontSize="12" Foreground="#CBD5E1" Margin="0,0,0,5"/>
+            <TextBox x:Name="TxtComment" Background="#1E293B" Foreground="#FFFFFF" BorderBrush="#334151" Padding="8" Height="36" Margin="0,0,0,20"/>
+
+            <!-- Botones -->
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="Cancelar" Height="40" Margin="0,0,8,0"
+                        Background="#334151" Foreground="#FFFFFF" BorderThickness="0" Cursor="Hand"
+                        Click="BtnCancel_Click"/>
+
+                <Button Grid.Column="1" Content="Guardar Consumo" Height="40" Margin="8,0,0,0"
+                        Background="#10B981" Foreground="#0F172A" FontWeight="Bold" BorderThickness="0" Cursor="Hand"
+                        Click="BtnSave_Click"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,99 @@
+﻿<Window x:Class="ZyroMoney_DESKTOP.CardDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Historial y Movimientos de Tarjeta" Height="650" Width="850"
+        Background="#0F172A" Foreground="#F8FAFC"
+        WindowStartupLocation="CenterOwner" ResizeMode="CanResize">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Cabecera -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,14">
+            <TextBlock x:Name="TxtCardTitle" FontSize="20" FontWeight="Bold" Foreground="#FFFFFF"/>
+            <TextBlock x:Name="TxtCardSubtitle" FontSize="12" Foreground="#94A3B8" Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <!-- Tabla de Consumos -->
+        <GroupBox Grid.Row="1" Header="Consumos Realizados" Foreground="#38BDF8" FontWeight="Bold" Margin="0,0,0,10" BorderBrush="#334151">
+            <DataGrid x:Name="GridTransactions" AutoGenerateColumns="False" CanUserAddRows="False"
+                      Background="#1E293B" Foreground="#F8FAFC" BorderBrush="#334151" 
+                      RowBackground="#1E293B" AlternatingRowBackground="#0F172A"
+                      GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#334151">
+
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#334151"/>
+                        <Setter Property="Foreground" Value="#F8FAFC"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Padding" Value="8,6"/>
+                        <Setter Property="BorderBrush" Value="#475569"/>
+                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    </Style>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Height" Value="32"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding TransactionDate, StringFormat={}{0:dd/MM/yyyy HH:mm}}" Width="130"/>
+                    <DataGridTextColumn Header="Comercio / Descripción" Binding="{Binding Description}" Width="*"/>
+                    <DataGridTextColumn Header="Categoría" Binding="{Binding Category}" Width="130"/>
+                    <DataGridTextColumn Header="Monto" Binding="{Binding Amount, StringFormat=N2}" Width="110"/>
+                    <DataGridTemplateColumn Header="Acciones" Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="🗑️" Background="Transparent" Foreground="#F87171" Cursor="Hand" BorderThickness="0"
+                                        Click="BtnDeleteTransaction_Click" Tag="{Binding TransactionId}" ToolTip="Eliminar consumo"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!-- Tabla de Pagos -->
+        <GroupBox Grid.Row="2" Header="Abonos y Pagos Registrados" Foreground="#10B981" FontWeight="Bold" BorderBrush="#334151">
+            <DataGrid x:Name="GridPayments" AutoGenerateColumns="False" CanUserAddRows="False"
+                      Background="#1E293B" Foreground="#F8FAFC" BorderBrush="#334151" 
+                      RowBackground="#1E293B" AlternatingRowBackground="#0F172A"
+                      GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#334151">
+
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#334151"/>
+                        <Setter Property="Foreground" Value="#F8FAFC"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Padding" Value="8,6"/>
+                        <Setter Property="BorderBrush" Value="#475569"/>
+                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    </Style>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Height" Value="32"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding PaymentDate, StringFormat={}{0:dd/MM/yyyy HH:mm}}" Width="130"/>
+                    <DataGridTextColumn Header="Tipo de Pago" Binding="{Binding PaymentType}" Width="150"/>
+                    <DataGridTextColumn Header="Notas" Binding="{Binding Notes}" Width="*"/>
+                    <DataGridTextColumn Header="Monto" Binding="{Binding Amount, StringFormat=N2}" Width="110"/>
+                    <DataGridTemplateColumn Header="Acciones" Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="🗑️" Background="Transparent" Foreground="#F87171" Cursor="Hand" BorderThickness="0"
+                                        Click="BtnDeletePayment_Click" Tag="{Binding PaymentId}" ToolTip="Eliminar pago"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</Window>
