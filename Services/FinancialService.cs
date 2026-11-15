@@ -173,5 +173,40 @@ namespace ZyroMoney_DESKTOP
                 }
             }
         }
+        public static void AddTransactionWithDate(int cardId, string description, decimal amount, string category, string comment, DateTime transactionDate)
+        {
+            using (var context = new ZyroMoneyLocalContext())
+            {
+                var transaction = new CardTransaction
+                {
+                    CreditCardId = cardId,
+                    Description = description,
+                    Amount = amount,
+                    Category = category,
+                    Comment = string.IsNullOrEmpty(comment) ? null : comment,
+                    TransactionDate = transactionDate 
+                };
+
+                context.Transactions.Add(transaction);
+                context.SaveChanges();
+            }
+        }
+        public static void AddPaymentWithDate(int cardId, decimal amount, string paymentType, string notes, DateTime paymentDate)
+        {
+            using (var context = new ZyroMoneyLocalContext())
+            {
+                var payment = new CardPayment
+                {
+                    CreditCardId = cardId,
+                    Amount = amount,
+                    PaymentType = paymentType,
+                    Notes = string.IsNullOrEmpty(notes) ? null : notes,
+                    PaymentDate = paymentDate 
+                };
+
+                context.Payments.Add(payment);
+                context.SaveChanges();
+            }
+        }
     }
 }
